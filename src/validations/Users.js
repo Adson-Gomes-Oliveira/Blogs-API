@@ -3,15 +3,15 @@ const status = require('../helpers/httpStatus');
 
 const errorObjects = {
   invalidName: { 
-    message: 'displayName length must be at least 8 characters long',
+    message: '"displayName" length must be at least 8 characters long',
     code: status.BAD_REQUEST,
   },
   invalidEmail: { 
-    message: 'email must be a valid email',
+    message: '"email" must be a valid email',
     code: status.BAD_REQUEST,
   },
   invalidPassword: {
-    message: 'password length must be at least 6 characters long',
+    message: '"password" length must be at least 6 characters long',
     code: status.BAD_REQUEST,
   },
   userAlreadyExist: {

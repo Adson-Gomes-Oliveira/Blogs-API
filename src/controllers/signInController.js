@@ -3,11 +3,7 @@ const customError = require('../helpers/customError');
 
 const signIn = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const payload = {
-      email,
-      password: Number(password),
-    };
+    const payload = req.body;
     const token = await signInServices.signIn(payload);
 
     if (token.message) {
@@ -15,7 +11,7 @@ const signIn = async (req, res, next) => {
       throw err;
     }
 
-    return res.status(token.code).json(token.result);
+    return res.status(token.code).json({ token: token.result });
   } catch (error) {
     next(error);
   }

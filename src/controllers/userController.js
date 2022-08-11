@@ -12,7 +12,7 @@ const create = async (req, res, next) => {
       throw err;
     }
 
-    return res.status(data.code).json(data.result);
+    return res.status(data.code).json({ token: data.result });
   } catch (error) {
     next(error);
   }

@@ -10,12 +10,14 @@ const signIn = async (user) => {
   const { email, password } = user;
 
   const findUser = await User.findOne({ where: { email } });
+
+  if (findUser === null) return { message: 'Invalid fields', code: status.BAD_REQUEST };
+
   const { dataValues } = findUser;
 
   if (password !== dataValues.password
     || email !== dataValues.email) {
-      console.log(dataValues.email, email, dataValues.password, password);
-    return { message: 'Invalid Fields', code: status.BAD_REQUEST };
+    return { message: 'Invalid fields', code: status.BAD_REQUEST };
   }
 
   const { password: _, ...noPasswordUSer } = dataValues;
