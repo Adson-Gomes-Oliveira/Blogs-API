@@ -8,10 +8,14 @@ const JWT = require('../helpers/JSONWebToken');
 const sequelize = new Sequelize(config.development);
 
 const getAll = async () => {
-  const data = await User.findAll();
-  return { result: data, code: status.OK };
+  const response = await User.findAll({ attributes: { exclude: ['password'] } });
+  return { result: response, code: status.OK };
 };
-
+const getByID = async (id) => {
+  const response = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+  if (response === null) return { message: 'User does not exist', code: status.NO_CONTENT };
+  return { result: response, code: status.OK };
+};
 const create = async (payload) => {
   if (Object.keys(payload).length < 1) return { message: 'No Content', code: status.NO_CONTENT };
 
@@ -39,5 +43,6 @@ const create = async (payload) => {
 
 module.exports = {
   getAll,
+  getByID,
   create,
 };

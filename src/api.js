@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 app.use('/login', routes.SignIn);
 app.use('/user', routes.User);
-app.use(authorization);
 app.use(error);
 
 module.exports = app;
