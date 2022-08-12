@@ -1,6 +1,20 @@
 const userServices = require('../services/userServices');
 const customError = require('../helpers/customError');
 
+const getAll = async (req, res, next) => {
+  try {
+    const data = await userServices.getAll();
+
+    if (data.message) {
+      const err = customError(data);
+      throw err;
+    }
+
+    return res.status(data.code).json(data.result);
+  } catch (error) {
+    next(error);
+  }
+};
 const create = async (req, res, next) => {
   try {
     const payload = req.body;
@@ -19,5 +33,6 @@ const create = async (req, res, next) => {
 };
 
 module.exports = {
+  getAll,
   create,
 };

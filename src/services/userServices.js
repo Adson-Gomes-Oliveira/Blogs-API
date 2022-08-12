@@ -7,6 +7,11 @@ const JWT = require('../helpers/JSONWebToken');
 
 const sequelize = new Sequelize(config.development);
 
+const getAll = async () => {
+  const data = await User.findAll();
+  return { result: data, code: status.OK };
+};
+
 const create = async (payload) => {
   if (Object.keys(payload).length < 1) return { message: 'No Content', code: status.NO_CONTENT };
 
@@ -33,5 +38,6 @@ const create = async (payload) => {
 };
 
 module.exports = {
+  getAll,
   create,
 };
