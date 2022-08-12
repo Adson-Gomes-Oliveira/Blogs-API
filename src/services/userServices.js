@@ -36,7 +36,7 @@ const create = async (payload) => {
 
     return { result: token, code: status.CREATED };
   } catch (error) {
-    await t.rollBack();
+    await t.rollback();
     return { message: error, code: status.INTERNAL };
   }
 };
