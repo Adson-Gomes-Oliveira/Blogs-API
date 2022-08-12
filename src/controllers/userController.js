@@ -29,7 +29,6 @@ const getByID = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 };
 const create = async (req, res, next) => {
   try {
