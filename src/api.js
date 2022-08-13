@@ -9,6 +9,7 @@ app.use(express.json());
 app.use('/login', routes.SignIn);
 app.use('/user', routes.User);
 app.use('/categories', authorization, routes.Category);
+app.use('/post', authorization, routes.BlogPost);
 app.use(error);
 
 module.exports = app;

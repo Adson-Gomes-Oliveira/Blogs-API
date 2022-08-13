@@ -11,11 +11,11 @@ const getAll = async () => {
   return { result: response, code: status.OK };
 };
 const create = async (payload) => {
+  const validatePayload = valid.create(payload);
+  if (validatePayload.message) return validatePayload;
+
   try {
   const transaction = await sequelize.transaction(async (t) => {
-    const validatePayload = valid.create(payload);
-    if (validatePayload.message) return validatePayload;
-
   const { name } = payload;
   
     const response = await Category.create(
