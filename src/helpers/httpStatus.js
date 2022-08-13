@@ -6,6 +6,7 @@ const codes = {
   INTERNAL: 500,
   INVALID_ENTITY: 422,
   UNAUTHORIZED: 401,
+  DELETE: 204,
 };
 
 module.exports = codes;

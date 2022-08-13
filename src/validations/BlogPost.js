@@ -50,6 +50,29 @@ const create = async (payload) => {
   return {};
 };
 
+const edit = (payload) => {
+  if (Object.values(payload).length < 1) {
+    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+  }
+  
+  const { title, content } = payload;
+  const verifyTitle = JOI.object({ title: JOI.string().min(1).required() });
+  const verifyContent = JOI.object({ content: JOI.string().min(1).required() });
+  
+  const titleValid = verifyTitle.validate({ title });
+  const contentValid = verifyContent.validate({ content });
+  
+  if (titleValid.error) {
+    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+  }
+  if (contentValid.error) {
+    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+  }
+
+  return {};
+};
+
 module.exports = {
   create,
+  edit,
 };
