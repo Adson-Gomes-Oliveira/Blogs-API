@@ -2,6 +2,8 @@ const JOI = require('joi');
 const { Category } = require('../database/models');
 const status = require('../helpers/httpStatus');
 
+const MISSING_ERR_MESSAGE = 'Some required fields are missing';
+
 const verifyCategoryIDs = async (categoryIds) => {
   const categorysFromDB = await Category.findAll();
   const arrayOfIDS = categorysFromDB.map((cat) => cat.dataValues.id);
@@ -28,7 +30,7 @@ const verifyCategoryIDs = async (categoryIds) => {
 
 const create = async (payload) => {
   if (Object.values(payload).length < 1) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
 
   const { title, content, categoryIds } = payload;
@@ -40,10 +42,10 @@ const create = async (payload) => {
   const idsValid = await verifyCategoryIDs(categoryIds);
   
   if (titleValid.error) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
   if (contentValid.error) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
   if (idsValid.message) return idsValid;
 
@@ -52,7 +54,7 @@ const create = async (payload) => {
 
 const edit = (payload) => {
   if (Object.values(payload).length < 1) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
   
   const { title, content } = payload;
@@ -63,10 +65,10 @@ const edit = (payload) => {
   const contentValid = verifyContent.validate({ content });
   
   if (titleValid.error) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
   if (contentValid.error) {
-    return { message: 'Some required fields are missing', code: status.BAD_REQUEST };
+    return { message: MISSING_ERR_MESSAGE, code: status.BAD_REQUEST };
   }
 
   return {};
