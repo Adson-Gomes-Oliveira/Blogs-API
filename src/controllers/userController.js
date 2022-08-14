@@ -46,9 +46,19 @@ const create = async (req, res, next) => {
     next(error);
   }
 };
+const exclude = async (req, res, next) => {
+  try {
+    const data = await userServices.exclude(req.user.id);
+    res.status(data.code).end();
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 
 module.exports = {
   getAll,
   getByID,
   create,
+  exclude,
 };

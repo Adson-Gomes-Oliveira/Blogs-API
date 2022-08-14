@@ -40,9 +40,17 @@ const create = async (payload) => {
     return { message: error, code: status.INTERNAL };
   }
 };
+const exclude = async (userID) => {
+  console.log(userID);
+  const response = await User.destroy({ where: { id: userID } });
+  console.log('OOOOOOOIIIIIIIIIIIIIII');
+  console.log(response);
+  return { result: null, code: status.DELETE };
+};
 
 module.exports = {
   getAll,
   getByID,
   create,
+  exclude,
 };
